@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const int startwithgaps[]    = { 1 };	/* 1 means gaps are used by default, this can be customized for each tag */
 static const unsigned int gappx[]   = { 10 };   /* default gap between windows in pixels, this can be customized for each tag */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -9,12 +9,12 @@ static const int horizpadbar        = 2;        /* horizontal padding for status
 static const int vertpadbar         = 8;        /* vertical padding for statusbar */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMono NF:Semibold:size=14", "Symbols NF:size=14" };
+static const char *fonts[]          = { "JetBrainsMono NF:Semibold:size=19", "Symbols NF:size=19" };
 static const char col_gray1[]       = "#1e1e1e";
 static const char col_gray2[]       = "#2d2d2d";
 static const char col_gray3[]       = "#636369";
 static const char col_fg1[]         = "#f7f7f7";
-static const char col_accent[]      = "#004b72";
+static const char col_accent[]      = "#EE2E31";
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
 	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
@@ -61,6 +61,8 @@ static const Layout layouts[] = {
 /* commands */
 static const char *dmenucmd[] = { "rofi", "-modi", "drun", "-show", "drun", "-show-icons", "-icon-theme", "Papirus", NULL };
 static const char *termcmd[]  = { "kitty", "/home/fs/", NULL };
+static const char *change_layout[]  = { "/home/fs/bin/change_layout.sh", NULL };
+static const char *screenshot[]  = { "flameshot", "gui", NULL };
 
 /* volume commands */
 static const char *uvol[]   = { "pactl", "set-sink-volume", "0", "+5%",     NULL };
@@ -78,8 +80,8 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-  { MODKEY,                       XK_bracketleft, spawn,     SHCMD("~/bin/volcon") },
-  { MODKEY,                       XK_Print,  spawn,          SHCMD("~/bin/scrot") },
+	{ MODKEY,                       XK_space,  spawn,          {.v = change_layout } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = screenshot } },
   // Programs: brightness //
 	{ 0,                            0x1008FF02, spawn,         {.v = ubright } },
 	{ 0,                            0x1008FF03, spawn,         {.v = dbright } },
@@ -102,8 +104,6 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },

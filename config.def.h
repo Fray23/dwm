@@ -14,7 +14,7 @@ static const char col_gray1[]       = "#1e1e1e";
 static const char col_gray2[]       = "#2d2d2d";
 static const char col_gray3[]       = "#636369";
 static const char col_fg1[]         = "#f7f7f7";
-static const char col_accent[]      = "#004b72";
+static const char col_accent[]      = "#005577";
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
 	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
@@ -59,8 +59,10 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-c", "-l", "14", NULL };
-static const char *termcmd[]  = { "kitty", NULL };
+static const char *dmenucmd[] = { "rofi", "-modi", "drun", "-show", "drun", "-show-icons", "-icon-theme", "Papirus", NULL };
+static const char *termcmd[]  = { "kitty", "/home/fs/", NULL };
+static const char *change_layout[]  = { "/home/fs/bin/change_layout.sh", NULL };
+static const char *screenshot[]  = { "flameshot", "gui", NULL };
 
 /* volume commands */
 static const char *uvol[]   = { "pactl", "set-sink-volume", "0", "+5%",     NULL };
@@ -76,10 +78,10 @@ static const char *dbright[] = { "light", "-U", "10",     NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-  { MODKEY,                       XK_bracketleft, spawn,     SHCMD("~/bin/volcon") },
-  { MODKEY,                       XK_Print,  spawn,          SHCMD("~/bin/scrot") },
+	{ MODKEY,                       XK_space,  spawn,          {.v = change_layout } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = screenshot } },
   // Programs: brightness //
 	{ 0,                            0x1008FF02, spawn,         {.v = ubright } },
 	{ 0,                            0x1008FF03, spawn,         {.v = dbright } },
@@ -102,8 +104,6 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
