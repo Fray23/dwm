@@ -59,10 +59,11 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "rofi", "-modi", "drun", "-show", "drun", "-show-icons", "-icon-theme", "Papirus", NULL };
+static const char *dmenucmd[] = { "/home/fs/bin/rofi", NULL };
 static const char *termcmd[]  = { "kitty", "/home/fs/", NULL };
 static const char *change_layout[]  = { "/home/fs/bin/change_layout.sh", NULL };
 static const char *screenshot[]  = { "flameshot", "gui", NULL };
+static const char *return_monitor[] = { "/home/fs/bin/multi_monitors", NULL };
 
 /* volume commands */
 static const char *uvol[]   = { "pactl", "set-sink-volume", "0", "+5%",     NULL };
@@ -82,6 +83,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_space,  spawn,          {.v = change_layout } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = screenshot } },
+	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = return_monitor } },
   // Programs: brightness //
 	{ 0,                            0x1008FF02, spawn,         {.v = ubright } },
 	{ 0,                            0x1008FF03, spawn,         {.v = dbright } },
