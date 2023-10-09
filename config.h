@@ -10,7 +10,7 @@ static const int vertpadbar         = 8;        /* vertical padding for statusba
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono NF:Semibold:size=14", "Symbols NF:size=14" };
-static const char col_gray1[]       = "#1e1e1e";
+static const char col_gray1[]       = "#272d2d";
 static const char col_gray2[]       = "#2d2d2d";
 static const char col_gray3[]       = "#636369";
 static const char col_fg1[]         = "#f7f7f7";
@@ -71,8 +71,8 @@ static const char *dvol[] = { "pactl", "set-sink-volume", "0", "-5%",     NULL }
 static const char *mvol[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 
 /* brightness commands */
-static const char *ubright[] = { "light", "-A", "10",     NULL };
-static const char *dbright[] = { "light", "-U", "10",     NULL };
+static const char *ubright[] = { "light", "-A", "3",     NULL };
+static const char *dbright[] = { "light", "-U", "3",     NULL };
 
 /* Movestack Patch */
 #include "movestack.c"
