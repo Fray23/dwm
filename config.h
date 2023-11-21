@@ -1,20 +1,20 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const int startwithgaps[]    = { 1 };	/* 1 means gaps are used by default, this can be customized for each tag */
-static const unsigned int gappx[]   = { 0 };   /* default gap between windows in pixels, this can be customized for each tag */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const int startwithgaps[]    = { 2 };	/* - 2  means gaps are used by default, this can be customized for each tag */
+static const unsigned int gappx[]   = { 10 };   /* - 10 default gap between windows in pixels, this can be customized for each tag */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int horizpadbar        = 2;        /* horizontal padding for statusbar */
 static const int vertpadbar         = 8;        /* vertical padding for statusbar */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMono NF:Semibold:size=14", "Symbols NF:size=14" };
-static const char col_gray1[]       = "#1e1e1e";
+static const char *fonts[]          = { "JetBrainsMono NF:Semibold:size=12", "Symbols NF:size=12" };
+static const char col_gray1[]       = "#000000";
 static const char col_gray2[]       = "#2d2d2d";
 static const char col_gray3[]       = "#636369";
 static const char col_fg1[]         = "#f7f7f7";
-static const char col_accent[]      = "#904E55";
+static const char col_accent[]      = "#f7f7f7";  /* #904E55 */
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
 	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
@@ -37,7 +37,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
@@ -59,20 +59,24 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "/home/fs/bin/rofi", NULL };
-static const char *termcmd[]  = { "kitty", "/home/fs/", NULL };
+static const char *dmenucmd[]       = { "/home/fs/bin/rofi", NULL };
+static const char *termcmd[]        = { "kitty", NULL };
 static const char *change_layout[]  = { "/home/fs/bin/change_layout.sh", NULL };
-static const char *screenshot[]  = { "flameshot", "gui", NULL };
-static const char *return_monitor[] = { "/home/fs/bin/multi_monitors", NULL };
-
+static const char *screenshot[]     = { "flameshot", "gui", NULL };
+static const char *return_monitor[] = { "/home/fs/bin/dpms", NULL };
 /* volume commands */
-static const char *uvol[]   = { "pactl", "set-sink-volume", "0", "+5%",     NULL };
-static const char *dvol[] = { "pactl", "set-sink-volume", "0", "-5%",     NULL };
-static const char *mvol[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
-
+static const char *uvol[]           = { "pactl", "set-sink-volume", "0", "+5%", NULL };
+static const char *dvol[]           = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *mvol[]           = { "pactl", "set-sink-mute", "0", "toggle", NULL };
+/* moc */
+static const char *mocseekp[]       = { "mocp", "--seek", "+5", NULL };
+static const char *mocseekl[]       = { "mocp", "--seek", "-5", NULL };
+static const char *mocppause[]      = { "mocp", "--toggle-pause", NULL };
+static const char *mocnext[]        = { "mocp", "--next", NULL };
+static const char *mocprevious[]    = { "mocp", "--previous", NULL };
 /* brightness commands */
-static const char *ubright[] = { "light", "-A", "3",     NULL };
-static const char *dbright[] = { "light", "-U", "3",     NULL };
+static const char *ubright[]        = { "light", "-A", "3", NULL };
+static const char *dbright[]        = { "light", "-U", "3", NULL };
 
 /* Movestack Patch */
 #include "movestack.c"
@@ -91,6 +95,13 @@ static const Key keys[] = {
 	{ 0,                            0x1008FF13, spawn,         {.v = uvol } },
 	{ 0,                            0x1008FF11, spawn,         {.v = dvol } },
 	{ 0,                            0x1008FF12, spawn,         {.v = mvol } },
+    // moc //
+	{ Mod4Mask,                     XK_equal,  spawn,          {.v = mocseekp } },
+	{ Mod4Mask,                     XK_minus,  spawn,          {.v = mocseekl } },
+	{ Mod4Mask,                     XK_space,  spawn,          {.v = mocppause } },
+	{ Mod4Mask,                     XK_comma,  spawn,          {.v = mocprevious } },
+	{ Mod4Mask,                     XK_period, spawn,          {.v = mocnext } },
+
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -125,7 +136,7 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+       { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
