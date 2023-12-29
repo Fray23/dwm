@@ -1,7 +1,8 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int gappx     = 15;
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int rmaster            = 1;        /* 1 means master-area is initially on the right */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -12,7 +13,7 @@ static const char col_gray1[]       = "#000000";
 static const char col_gray2[]       = "#2d2d2d";
 static const char col_gray3[]       = "#636369";
 static const char col_fg1[]         = "#f7f7f7";
-static const char col_accent[]      = "#FFFFFF";  /* #904E55 #88c0d0 #FF0000*/
+static const char col_accent[]      = "#FFFFFF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF*/
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
 	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
@@ -102,15 +103,14 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_period, spawn,          {.v = mocnext } },
 
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_t,      togglermaster,  {0} },
 
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	// { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	// { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
@@ -153,4 +153,3 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
