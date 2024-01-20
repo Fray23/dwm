@@ -205,7 +205,6 @@ static void sendmon(Client *c, Monitor *m);
 static void setclientstate(Client *c, long state);
 static void setfocus(Client *c);
 static void setfullscreen(Client *c, int fullscreen);
-static void setgaps(const Arg *arg);
 static void setlayout(const Arg *arg);
 static void setmfact(const Arg *arg);
 static void setup(void);
@@ -218,7 +217,6 @@ static void tagmon(const Arg *arg);
 static void tile(Monitor *m);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
-static void togglermaster(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -1111,17 +1109,22 @@ void
 incnmaster(const Arg *arg)
 {
 	unsigned int i;
-	selmon->nmaster = MAX(selmon->nmaster + arg->i, 0);
+        Client *c;
+        int n;
+        for (n = 0, c = nexttiled(selmon->clients); c; c = nexttiled(c->next), n++);
+        selmon->nmaster = MAX(MIN(selmon->nmaster,n) + arg->i, 0);
+
 	for(i=0; i<LENGTH(tags); ++i)
 		if(selmon->tagset[selmon->seltags] & 1<<i)
 			selmon->pertag->nmasters[i+1] = selmon->nmaster;
-	
+
 	if(selmon->pertag->curtag == 0)
 	{
 		selmon->pertag->nmasters[0] = selmon->nmaster;
 	}
 	arrange(selmon);
 }
+
 
 #ifdef XINERAMA
 static int
@@ -1253,7 +1256,6 @@ void
 monocle(Monitor *m)
 {
 	unsigned int n = 0;
-	unsigned int h;
 	Client *c;
 
 	for (c = m->clients; c; c = c->next)
@@ -1654,15 +1656,6 @@ setfullscreen(Client *c, int fullscreen)
 	}
 }
 
-void
-setgaps(const Arg *arg)
-{
-	if ((arg->i == 0) || (selmon->gappx + arg->i < 0))
-		selmon->gappx = 0;
-	else
-		selmon->gappx += arg->i;
-	arrange(selmon);
-}
 
 void
 setlayout(const Arg *arg)
@@ -1677,13 +1670,13 @@ setlayout(const Arg *arg)
 	for(i=0; i<LENGTH(tags); ++i)
 		if(selmon->tagset[selmon->seltags] & 1<<i)
 		{
-			selmon->pertag->ltidxs[i+1][selmon->sellt] = selmon->lt[selmon->sellt]; 
+			selmon->pertag->ltidxs[i+1][selmon->sellt] = selmon->lt[selmon->sellt];
 			selmon->pertag->sellts[i+1] = selmon->sellt;
 		}
-	
+
 	if(selmon->pertag->curtag == 0)
 	{
-		selmon->pertag->ltidxs[0][selmon->sellt] = selmon->lt[selmon->sellt]; 
+		selmon->pertag->ltidxs[0][selmon->sellt] = selmon->lt[selmon->sellt];
 		selmon->pertag->sellts[0] = selmon->sellt;
 	}
 
@@ -1921,16 +1914,6 @@ togglefloating(const Arg *arg)
 		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
 			selmon->sel->w, selmon->sel->h, 0);
 	arrange(selmon);
-}
-
-void
-togglermaster(const Arg *arg)
-{
-	selmon->rmaster = !selmon->rmaster;
-	/* now mfact represents the left factor */
-	selmon->mfact = 1.0 - selmon->mfact;
-	if (selmon->lt[selmon->sellt]->arrange)
-		arrange(selmon);
 }
 
 void
