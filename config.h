@@ -7,21 +7,35 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int rmaster            = 1;        /* 1 means master-area is initially on the right */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMono NF:Semibold:size=12", "Symbols NF:size=12" };
-static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#000000";
-static const char col_gray2[]       = "#2d2d2d";
-static const char col_gray3[]       = "#636369";
-static const char col_fg1[]         = "#f7f7f7";
-static const char col_accent[]      = "#FFFFFF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF*/
+static const char *fonts[]          = { "JetBrainsMono NF:bold:size=13", "Symbols NF:size=13" };
+// static const char *fonts[]          = { "Iosevka Nerd Font:bold:size=15", "vlgothic:size=15" };
+// colors for nord
+// static const char col_gray1[]       = "#2E3440";   // bar background
+// static const char col_gray2[]       = "#444444";   // границы неактивных оккан
+// static const char col_gray3[]       = "#AAAAAA";   // неактивные теги
+// static const char col_fg1[]         = "#FF0000";   // активные теги и титул
+// static const char col_accent[]      = "#87F1FF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
+// colors for everforest
+static const char col_gray1[]       = "#232A2E";   // bar background
+static const char col_gray2[]       = "#444444";   // границы неактивных оккан
+static const char col_gray3[]       = "#4F585E";   // неактивные теги
+static const char col_fg1[]         = "#A7C080";   // активные теги и титул
+static const char col_accent[]      = "#A7C080";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
+
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
-	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
-	[SchemeSel]  = { col_gray1,  col_fg1,   col_accent  },
+	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2  },
+	[SchemeSel]  = { col_gray1,  col_fg1,     col_accent },
+
+        // bar without title
+        // [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
+	// [SchemeSel]  = { col_fg1,  col_gray1,     col_accent  },
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+// static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+// static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "IX", "X" };
 
 static const Rule rules[] = {
 	/* xprop(1):
