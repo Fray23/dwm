@@ -902,9 +902,11 @@ drawbar(Monitor *m)
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
 	if ((w = m->ww - tw - x) > bh) {
-		if (n > 0) {
+	      if (m == selmon && n > 0) {
 			int remainder = w % n;
 			int tabw = (1.0 / (double)n) * w + 1;
+			x = x + (tabw * (n - 1));
+
 			for (c = m->clients; c; c = c->next) {
 				if (!ISVISIBLE(c))
 					continue;
@@ -923,7 +925,7 @@ drawbar(Monitor *m)
 					remainder--;
 				}
 				drw_text(drw, x, 0, tabw, bh, lrpad / 2, c->name, 0);
-				x += tabw;
+				x -= tabw;
 			}
 		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
