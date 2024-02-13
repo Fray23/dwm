@@ -1,40 +1,39 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int gappx     = 15;
+static const unsigned int gappx     = 0;
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int rmaster            = 1;        /* 1 means master-area is initially on the right */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono NF:bold:size=13", "Symbols NF:size=13" };
-// static const char *fonts[]          = { "Iosevka Nerd Font:bold:size=15", "vlgothic:size=15" };
-// colors for nord
-// static const char col_gray1[]       = "#2E3440";   // bar background
-// static const char col_gray2[]       = "#444444";   // границы неактивных оккан
-// static const char col_gray3[]       = "#AAAAAA";   // неактивные теги
-// static const char col_fg1[]         = "#FF0000";   // активные теги и титул
-// static const char col_accent[]      = "#87F1FF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
-// colors for everforest
-static const char col_gray1[]       = "#232A2E";   // bar background
+// nord colors
+static const char col_gray1[]       = "#2E3440";   // bar background
 static const char col_gray2[]       = "#444444";   // границы неактивных оккан
-static const char col_gray3[]       = "#4F585E";   // неактивные теги
-static const char col_fg1[]         = "#A7C080";   // активные теги и титул
-static const char col_accent[]      = "#A7C080";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
+static const char col_gray3[]       = "#AAAAAA";   // неактивные теги
+static const char col_fg1[]         = "#FFFFFF";   // активные теги и титул
+static const char col_accent[]      = "#87F1FF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
+// everforest colors
+// static const char col_gray1[]       = "#232A2E";   // bar background
+// static const char col_gray2[]       = "#444444";   // границы неактивных оккан
+// static const char col_gray3[]       = "#4F585E";   // неактивные теги
+// static const char col_fg1[]         = "#A7C080";   // активные теги и титул
+// static const char col_accent[]      = "#A7C080";   // границы активного окна
 
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
 	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2  },
 	[SchemeSel]  = { col_gray1,  col_fg1,     col_accent },
 
-        // bar without title
+        // bar without title and col_fg1 <-> col_gray1
         // [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
 	// [SchemeSel]  = { col_fg1,  col_gray1,     col_accent  },
 };
 
 /* tagging */
-// static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+// static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 // static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "IX", "X" };
 
 static const Rule rules[] = {
@@ -48,7 +47,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.5;  /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -72,11 +71,14 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[]       = { "/home/fs/bin/rofi", NULL };
+static const char *rofi[]           = { "/home/fs/bin/rofi", NULL };
 static const char *termcmd[]        = { "kitty", NULL };
+static const char *stermcmd[]       = { "st", NULL };
+static const char *slock[]          = { "slock", NULL };
 static const char *change_layout[]  = { "/home/fs/bin/change_layout.sh", NULL };
 static const char *screenshot[]     = { "flameshot", "gui", NULL };
 static const char *return_monitor[] = { "/home/fs/bin/dpms", NULL };
+static const char *emacs[]          = { "emacsclient", "-c", NULL };
 /* volume commands */
 static const char *uvol[]           = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *dvol[]           = { "pactl", "set-sink-volume", "0", "-5%", NULL };
@@ -101,6 +103,7 @@ static const Key keys[] = {
 
         { MODKEY,                       XK_space,  spawn,          {.v = change_layout } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = screenshot } },
+	{ MODKEY,                       XK_e,      spawn,          {.v = emacs } },
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = return_monitor } },
         // Programs: brightness //
 	{ 0,                            0x1008FF02, spawn,         {.v = ubright } },
@@ -117,9 +120,11 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_period, spawn,          {.v = mocnext } },
 
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = stermcmd } },
+	{ MODKEY,                       XK_o,      spawn,          {.v = slock } },
 
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = rofi } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
@@ -155,7 +160,7 @@ static const Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	// { ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
