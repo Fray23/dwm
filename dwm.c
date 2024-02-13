@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details.
- *
+
  * dynamic window manager is designed like any other X client as well. It is
  * driven through handling X events. In contrast to other X clients, a window
  * manager selects for SubstructureRedirectMask on the root window, to receive
@@ -917,13 +917,6 @@ drawbar(Monitor *m)
 				else
 					scm = SchemeNorm;
 				drw_setscheme(drw, scheme[scm]);
-
-				if (remainder >= 0) {
-					if (remainder == 0) {
-						tabw--;
-					}
-					remainder--;
-				}
 				drw_text(drw, x, 0, tabw, bh, lrpad / 2, c->name, 0);
 				x -= tabw;
 			}
