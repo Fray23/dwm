@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int gappx     = 0;
+static const unsigned int gappx     = 10;
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int rmaster            = 1;        /* 1 means master-area is initially on the right */
@@ -9,30 +9,36 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "JetBrainsMono NF:bold:size=13", "Symbols NF:size=13" };
 // nord colors
-static const char col_gray1[]       = "#2E3440";   // bar background
-static const char col_gray2[]       = "#444444";   // границы неактивных оккан
-static const char col_gray3[]       = "#AAAAAA";   // неактивные теги
-static const char col_fg1[]         = "#FFFFFF";   // активные теги и титул
-static const char col_accent[]      = "#87F1FF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
-// everforest colors
-// static const char col_gray1[]       = "#232A2E";   // bar background
+// static const char col_gray1[]       = "#2E3440";   // bar background
 // static const char col_gray2[]       = "#444444";   // границы неактивных оккан
-// static const char col_gray3[]       = "#4F585E";   // неактивные теги
-// static const char col_fg1[]         = "#A7C080";   // активные теги и титул
-// static const char col_accent[]      = "#A7C080";   // границы активного окна
+// static const char col_gray3[]       = "#AAAAAA";   // неактивные теги
+// static const char col_fg1[]         = "#56E39F";   // активные теги и титул
+// static const char col_accent[]      = "#87F1FF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
+// everforest colors
+static const char col_gray1[]       = "#232A2E";   // bar background
+static const char col_gray2[]       = "#444444";   // границы неактивных оккан
+static const char col_gray3[]       = "#bbbbbb";   // неактивные теги
+static const char col_fg1[]         = "#F05D5E";   // активные теги и титул
+static const char col_accent[]      = "#A7C080";   // границы активного окна
+
+// #5BC0EB #FDE74C #9BC53D #C3423F #404E4D
+// #1C3144 #596F62 #7EA16B #C3D898 #9A775B #70161E
+// #F05D5E #0F7173 #E7ECEF #878B91 #272932 #D8A47F
+// #FFA69E #FAF3DD #B8F2E6 #AED9E0 #869FA9 #5E6472
 
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
-	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2  },
-	[SchemeSel]  = { col_gray1,  col_fg1,     col_accent },
+	// [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2  },
+	// [SchemeSel]  = { col_gray1,  col_fg1,     col_accent },
 
         // bar without title and col_fg1 <-> col_gray1
-        // [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
-	// [SchemeSel]  = { col_fg1,  col_gray1,     col_accent  },
+        [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
+	[SchemeSel]  = { col_fg1,  col_gray1,     col_accent  },
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+// static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "󰈹", "󰕷", "󰅱", "󰈄", "󰓓", "󰇏", "󰊠", "S", "" };
 // static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 // static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "IX", "X" };
 
@@ -54,7 +60,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[]=",      tile },    /* first entry is default */
+	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 };
@@ -73,7 +79,6 @@ static const Layout layouts[] = {
 /* commands */
 static const char *rofi[]           = { "/home/fs/bin/rofi", NULL };
 static const char *termcmd[]        = { "kitty", NULL };
-static const char *stermcmd[]       = { "st", NULL };
 static const char *slock[]          = { "slock", NULL };
 static const char *change_layout[]  = { "/home/fs/bin/change_layout.sh", NULL };
 static const char *screenshot[]     = { "flameshot", "gui", NULL };
@@ -99,7 +104,6 @@ static const char *dbright[]        = { "light", "-U", "3", NULL };
 static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_Tab,    focusstack,     {.i = +1 } },
 
         { MODKEY,                       XK_space,  spawn,          {.v = change_layout } },
 	{ MODKEY,                       XK_p,      spawn,          {.v = screenshot } },
@@ -120,7 +124,6 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_period, spawn,          {.v = mocnext } },
 
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_s,      spawn,          {.v = stermcmd } },
 	{ MODKEY,                       XK_o,      spawn,          {.v = slock } },
 
 	/* modifier                     key        function        argument */
