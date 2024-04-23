@@ -7,21 +7,16 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int rmaster            = 1;        /* 1 means master-area is initially on the right */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "JetBrainsMono NF:bold:size=13", "Symbols NF:size=13" };
-// nord colors
-// static const char col_gray1[]       = "#2E3440";   // bar background
-// static const char col_gray2[]       = "#444444";   // границы неактивных оккан
-// static const char col_gray3[]       = "#AAAAAA";   // неактивные теги
-// static const char col_fg1[]         = "#56E39F";   // активные теги и титул
-// static const char col_accent[]      = "#87F1FF";  /* #904E55 #88c0d0 #FF0000 #FFFFFF #87F1FF*/  // границы активного окна
-// everforest colors
-static const char col_gray1[]       = "#232A2E";   // bar background
+// static const char *fonts[]          = { "JetBrainsMono NF:bold:size=13", "Symbols NF:size=13" };
+static const char *fonts[]          = { "JetBrainsMono NF:bold:size=15", "Symbols NF:size=15" };
+
+static const char col_gray1[]       = "#000000";   // bar background
 static const char col_gray2[]       = "#444444";   // границы неактивных оккан
 static const char col_gray3[]       = "#bbbbbb";   // неактивные теги
 static const char col_fg1[]         = "#F05D5E";   // активные теги и титул
-static const char col_accent[]      = "#A7C080";   // границы активного окна
+static const char col_accent[]      = "#FF0000";   // границы активного окна
 
-// #5BC0EB #FDE74C #9BC53D #C3423F #404E4D
+// #5BC0EB #FDE74C #9BC53D #C3423F #404E4D #232A2E
 // #1C3144 #596F62 #7EA16B #C3D898 #9A775B #70161E
 // #F05D5E #0F7173 #E7ECEF #878B91 #272932 #D8A47F
 // #FFA69E #FAF3DD #B8F2E6 #AED9E0 #869FA9 #5E6472
@@ -37,8 +32,8 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-// static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *tags[] = { "󰈹", "󰕷", "󰅱", "󰈄", "󰓓", "󰇏", "󰊠", "󰒃", "" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+// static const char *tags[] = { "󰈹", "󰕷", "󰅱", "󰈄", "󰓓", "󰇏", "󰊠", "󰒃", "" };
 // static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 // static const char *tags[] = { "I", "II", "III", "IV", "V", "VI", "VII", "IX", "X" };
 
@@ -60,8 +55,8 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "  ",      tile },    /* first entry is default */
-	{ " ",      NULL },    /* no layout function means floating behavior */
+	{ "   ",      tile },    /* first entry is default */
+	{ "  ",      NULL },    /* no layout function means floating behavior */
 	{ " [M]",      monocle },
 };
 
