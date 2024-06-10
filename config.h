@@ -1,19 +1,19 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int gappx     = 10;
+static const unsigned int gappx     = 15;
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int rmaster            = 1;        /* 1 means master-area is initially on the right */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 // static const char *fonts[]          = { "JetBrainsMono NF:bold:size=13", "Symbols NF:size=13" };
-static const char *fonts[]          = { "JetBrainsMono NF:bold:size=15", "Symbols NF:size=15" };
+static const char *fonts[]          = { "JetBrainsMono NF:bold:size=14", "Symbols NF:size=14" };
 
 static const char col_gray1[]       = "#000000";   // bar background
 static const char col_gray2[]       = "#444444";   // границы неактивных оккан
 static const char col_gray3[]       = "#bbbbbb";   // неактивные теги
-static const char col_fg1[]         = "#F05D5E";   // активные теги и титул
+static const char col_fg1[]         = "#FFFFFF";   // активные теги и титул
 static const char col_accent[]      = "#FF0000";   // границы активного окна
 
 // #5BC0EB #FDE74C #9BC53D #C3423F #404E4D #232A2E
@@ -23,12 +23,12 @@ static const char col_accent[]      = "#FF0000";   // границы актив�
 
 static const char *colors[][3]      = {
 	/*               fg          bg           border   */
-	// [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2  },
-	// [SchemeSel]  = { col_gray1,  col_fg1,     col_accent },
+	[SchemeNorm] = { col_gray3,  col_gray1,   col_gray2  },
+	[SchemeSel]  = { col_gray1,  col_fg1,     col_accent },
 
         // bar without title and col_fg1 <-> col_gray1
-        [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
-	[SchemeSel]  = { col_fg1,  col_gray1,     col_accent  },
+        // [SchemeNorm] = { col_gray3,  col_gray1,   col_gray2 },
+	// [SchemeSel]  = { col_fg1,  col_gray1,     col_accent  },
 };
 
 /* tagging */
@@ -90,8 +90,8 @@ static const char *mocppause[]      = { "mocp", "--toggle-pause", NULL };
 static const char *mocnext[]        = { "mocp", "--next", NULL };
 static const char *mocprevious[]    = { "mocp", "--previous", NULL };
 /* brightness commands */
-static const char *ubright[]        = { "light", "-A", "3", NULL };
-static const char *dbright[]        = { "light", "-U", "3", NULL };
+static const char *ubright[]        = { "xbacklight", "-inc", "10", NULL };
+static const char *dbright[]        = { "xbacklight", "-dec", "10", NULL };
 
 /* Movestack Patch */
 #include "movestack.c"
@@ -100,7 +100,10 @@ static const Key keys[] = {
         { MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
 
-        { MODKEY,                       XK_space,  spawn,          {.v = change_layout } },
+        { MODKEY,                       XK_Control_L,  spawn,      {.v = change_layout } },
+        { MODKEY,                       XK_space,  spawn,      {.v = change_layout } },
+        { MODKEY,                       XK_Control_R,  spawn,      {.v = change_layout } },
+
 	{ MODKEY,                       XK_p,      spawn,          {.v = screenshot } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emacs } },
 	{ MODKEY|ShiftMask,             XK_m,      spawn,          {.v = return_monitor } },
